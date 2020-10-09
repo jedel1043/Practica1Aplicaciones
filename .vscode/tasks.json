@@ -48,7 +48,8 @@
             "type": "process",
             "command": "python3",
             "args": [
-                "client.py"
+                "client.py",
+                "lorem.txt"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/client"
@@ -60,7 +61,27 @@
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": false
-            }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "python",
+                    "fileLocation": "autoDetect",
+                    "pattern": [
+                        {
+                            "regexp": "^.*File \\\"([^\\\"]|.*)\\\", line (\\d+).*",
+                            "file": 1,
+                            "line": 2
+                        },
+                        {
+                            "regexp": "^.*raise.*$"
+                        },
+                        {
+                            "regexp": "^\\s*(.*)\\s*$",
+                            "message": 1
+                        }
+                    ]
+                }
+            ],
         }
     ]
 }
