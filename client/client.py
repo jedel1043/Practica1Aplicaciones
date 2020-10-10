@@ -20,6 +20,8 @@ BUFFER_SIZE = 4096
     filepath:   ruta del archivo a enviar
     relpath:    ruta que tendrá el archivo al recibirse en el servidor
 '''
+
+
 def sendfile(filepath, relpath):
     # abre un nuevo socket para conectarse con el servidor
     # socket.AF_INET = IPv4 socket
@@ -35,7 +37,7 @@ def sendfile(filepath, relpath):
             filelen = os.path.getsize(f.name)
 
             print("Getting ready to send file \"" + filepath
-                + "\" of", filelen, "bytes")
+                  + "\" of", filelen, "bytes")
 
             # se envían 2 bytes (16 bits) de tamaño de ruta del archivo;
             # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
@@ -65,10 +67,11 @@ def sendfile(filepath, relpath):
                     delivered += rem
 
                 print("Sent", len(data),
-                    "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
+                      "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
             print("Correcly sent file \"" + filepath + "\" to server")
             print()
-    
+
+
 # obtenemos todos los argumentos del script
 # excepto el nombre del mismo script
 for arg in sys.argv[1:]:
@@ -93,7 +96,7 @@ for arg in sys.argv[1:]:
     # si es un archivo, el servidor no crea una carpeta
     elif os.path.isfile(arg):
         sendfile(arg, os.path.basename(arg))
-    
+
     # ignora argumentos de entrada inválidos para
     # procesar todos los archivos posibles
     else:

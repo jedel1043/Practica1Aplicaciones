@@ -49,7 +49,6 @@
             "command": "python3",
             "args": [
                 "client.py",
-                "client.py",
                 "test"
             ],
             "options": {
@@ -82,7 +81,7 @@
                         }
                     ]
                 }
-            ],
+            ]
         }
     ]
 }
