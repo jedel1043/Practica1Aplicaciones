@@ -1,24 +1,31 @@
-# Echo server program
 import socket
 import os
 import pathlib
 
+# info del servidor
 HOST = ''
 PORT = 50007
-BUFFER_SIZE = 4096  # Recommended power of 2 and small buffer
+BUFFER_SIZE = 4096  # buffer óptimo con tamaño pequeño y potencia de 2
 
-print('Starting server on port', PORT)
+
+''' Formato para la recepción de un archivo:
+    2 bytes: longitud de la ruta destino (pathlen)
+    n bytes: ruta destino
+    4 bytes: longitud del archivo
+    m bytes: datos del archivo
+'''
 
 # abre un nuevo socket para esperar peticiones de un cliente
 # socket.AF_INET = IPv4 socket
-# socket.SOCK_STREAM habilita recibir información particionada
-#   por arreglos de tamaño BUFFER_SIZE
+# socket.SOCK_STREAM habilita el protocolo TCP
 # with cierra automáticamente el socket después de salir
 #   de su contexto
+print('Starting server on port', PORT)
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen(1)
 
+    # recibe infinitamente peticiones hasta forzar el cierre
     while (True):
         # s.accept() espera alguna petición para
         # continuar con la ejecución del programa
