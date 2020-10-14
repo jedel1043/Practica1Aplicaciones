@@ -13,3 +13,60 @@ a{
     color: black;
     text-decoration: none;
 }
+ul, li{
+    list-style: none;
+    padding: 0;
+}
+
+/* Menu Principal */
+body{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    height: 100vh;
+}
+aside#left-menu{
+    background-color: #F7F9FA;
+    height: 100%;
+    flex: 3;
+    box-sizing: border-box;
+    padding: 80px 30px;
+}
+
+#left-menu a#add-File {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding:  13px 20px;
+    background-color: #497ADE;
+    border-radius: 5px;
+    color: rgb(223, 223, 223);
+    margin-bottom: 25px;
+}
+
+#left-menu #all-folders p.main-title{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#left-menu #all-folders ul.subfolder {
+    padding-left: 18px;
+}
+#left-menu #all-folders ul li a{
+    display: block;
+    box-sizing: border-box;
+    padding: 4px 0;
+}
+#left-menu #all-folders ul li a .element-icon{
+    margin-right: 10px;
+}
+#left-menu #all-folders ul li a .arrow-icon{
+    margin-right: 12px;
+}
+/* Cuerpo Principal */
+main#main-content{
+    background-color: #C0EEDA;
+    flex: 12;
+    height: 100%;
+    box-sizing: border-box;
+}
