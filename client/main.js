@@ -2,14 +2,16 @@ const {app, BrowserWindow} = require('electron');
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 900,
-        height: 750,
+        width: 950,
+        height: 600,
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        resizable: false
     });
 
     win.loadFile('index.html');
+    win.removeMenu();
 
     // win.webContents.openDevTools();
 }
