@@ -27,7 +27,7 @@ body{
     margin: 0;
     height: 100vh;
 }
-aside#left-menu{
+aside.left-menu{
     background-color: rgb(247, 249, 250);
     width: 25vw;
     height: 100vh;
@@ -36,7 +36,7 @@ aside#left-menu{
     padding: 50px 30px;
 }
 
-#left-menu a#add-File {
+.left-menu a#add-File {
     width: 100%;
     display: block;
     box-sizing: border-box;
@@ -47,43 +47,43 @@ aside#left-menu{
     margin-bottom: 25px;
 }
 
-#left-menu #all-folders p.main-title{
+.left-menu #all-folders p.main-title{
     font-size: 1.2em;
     font-weight: bold;
 }
 
-#left-menu #all-folders ul.subfolder {
+.left-menu #all-folders ul.subfolder {
     padding-left: 18px;
 }
-#left-menu #all-folders ul li a{
+.left-menu #all-folders ul li a{
     display: block;
     box-sizing: border-box;
     padding: 4px 0;
 }
-#left-menu #all-folders ul li a i{
+.left-menu #all-folders ul li a i{
     color: rgb(180, 178, 178);
 }
-#left-menu #all-folders ul li a i.element-icon{
+.left-menu #all-folders ul li a i.element-icon{
     margin-right: 10px;
 }
-#left-menu #all-folders ul li a i.arrow-icon{
+.left-menu #all-folders ul li a i.arrow-icon{
     margin-right: 12px;
 }
 /* Cuerpo Principal */
-main#main-content{
+main.main-content{
     background-color: rgb(255, 255, 255);
     width: 75vw;
     height: 100vh;
     box-sizing: border-box;
     padding: 50px 30px;
 }
-main#main-content h1{
+main.main-content h1{
     font-weight: 400;
     margin-top: 0;
     font-size: 1.8em;
 }
 
-#main-content #content-folders{
+.main-content #content-folders{
     width: auto;
     height: 200px;
     margin-bottom: 50px;
@@ -131,4 +131,8 @@ main#main-content h1{
     color: rgb(185, 185, 185);
     font-size: 1.5em;
     margin-right: 15px;
+}
+
+main#drag-zone{
+    background-color: rgb(170, 170, 170);
 }
