@@ -17,9 +17,8 @@
   <body>
     <!-- Menu Principal -->
     <aside class="left-menu">
-        <a href="#" id="add-File">
-          <i class="fas fa-plus"></i>
-          Upload File
+        <a href="index.html" class="main-icon" id="home">
+          <i class="fas fa-home"></i> Home
         </a>
 
       <div id="all-folders">
@@ -136,8 +135,8 @@
     <main class="main-content" id="drag-zone">
       <h1>Subir Archivo</h1>
       
-      <form method="post" enctype="multipart/form-data">
-        <input type="file" name="photo">
+      <form method="" enctype="multipart/form-data">
+        <input type="file" id="filepicker" name="fileLise" webkitdirectory multiple>
         <input type="submit" value="Submit">
       </form>
 

@@ -1,4 +1,5 @@
 const dropZone = document.getElementById("drag-zone");
+const filePicker = document.getElementById("filepicker");
 if (dropZone) {
     const hoverClassName = "hover";
 
@@ -29,3 +30,13 @@ if (dropZone) {
         // TODO do somethings with files...
     });
 }
+
+filePicker.addEventListener("change", function(event){
+    let files = event.target.files;
+
+    for (let i=0; i<files.length; i++) {
+      let item = files[i];
+      console.log(item.webkitRelativePath);
+    };
+  
+}, false);
