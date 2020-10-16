@@ -156,6 +156,64 @@ main.main-content h1{
 .main-content #content-files table tbody tr td > a.btn.btn-delete{
     color: #f52944;
 }
-main#drag-zone{
-    background-color: rgb(170, 170, 170);
+
+
+
+/*  -------------------  B U T T O N   F I L E  -------------------  */
+.upload-file{
+    width: 80%;
+    margin: 0 auto 20px auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px 0;
+    border-width: 5px;
+    border-collapse: separate;
+    border-style: dashed;
+    border-color: #94cde7;
+}
+.upload-file [type="file"] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+.upload-file [type="file"] + label {
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: inherit;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    outline: none;
+    padding: 1rem 80px;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+}
+
+.upload-file [type="file"] + label.btn-2{
+    background-color: #94cde7;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.upload-file [type="file"] + label.btn-2::before {
+    content: "\f382";
+    font-family: "Font Awesome 5 Pro";
+    font-size: 100%;
+    height: 100%;
+    right: 130%;
+    line-height: 3.3;
+    position: absolute;
+    top: 0px;
+    transition: all 0.3s;
+    color: #fff;
+}
+
+.upload-file [type="file"] + label.btn-2:hover {
+    background-color: #4e88aa;
+}
+.upload-file [type="file"] + label.btn-2:hover::before {
+    right: 75%;
 }
