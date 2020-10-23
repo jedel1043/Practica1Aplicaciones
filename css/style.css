@@ -6,8 +6,15 @@ h3,h4,h5{
     font-family: 'Cabin', sans-serif;   
 }
 
-p,a, table{
+p,a, table, label, input{
     font-family: 'Montserrat', sans-serif;
+}
+label, input{
+    display: block;
+    text-align: left;
+}
+input:focus{
+    outline: none;
 }
 a{
     color: black;
@@ -157,8 +164,6 @@ main.main-content h1{
     color: #f52944;
 }
 
-
-
 /*  -------------------  B U T T O N   F I L E  -------------------  */
 .upload-file{
     width: 80%;
@@ -216,4 +221,52 @@ main.main-content h1{
 }
 .upload-file [type="file"] + label.btn-2:hover::before {
     right: 75%;
+}
+/*  -------------------  L O G I N    P A G E  -------------------  */
+main.login{
+    width: 100vw;
+    height: 100vh;
+    background-color: #4e88aa;
+    text-align: center;
+}
+
+.login form#login-form{
+    background-color:  rgb(247, 249, 250);
+    display: block;
+    width: 35%;
+    margin: 20% auto;
+    padding: 30px 40px;
+    box-sizing: border-box;
+}
+.login form#login-form label{
+    margin: 18px 0;
+    width: 100%;
+    text-align: center;
+}
+.login form#login-form input[type="text"],
+.login form#login-form input[type="password"]{
+    width: 100%;
+    box-sizing: border-box;
+    padding: .8em 1em;
+    font-size: .8em;
+    border-radius: 1.5em;
+    border-style: none;
+    border: 1px solid #ccc;
+}
+.login form#login-form input[type="submit"]{
+    appearance: none;
+    cursor: pointer;
+    border-style: none;
+    box-sizing: border-box;
+    padding: .8em 2em;
+    font-size: .8em;
+    margin: 30px 0 0 auto;
+    text-align: right;
+    background-color:  rgb(217, 225, 230);
+    font-size: .9em;
+    border-radius: 5px; 
+}
+.login form#login-form input[type="submit"]:hover{
+    background-color:  #4e88aa;
+    color: white;
 }
