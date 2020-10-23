@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My cloud!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/db1bef7131.js" crossorigin="anonymous"></script>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    
+    <!-- ESTILOS CSS -->
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/scroll.css" type="text/css">
+  </head>
+  <body>
+    <!-- Menu Principal -->
+    <aside class="left-menu">
+        <a href="upload.html" class="main-icon" id="upload">
+          <i class="fas fa-plus"></i>
+          Upload File
+        </a>
+
+      <div id="all-folders">
+        <p href="#" class="main-title">
+          Files
+        </p>
+        <ul id="folders">
+          <li class="folder-element">
+            <a href="#">
+              <i class="fas fa-angle-down arrow-icon"></i>
+              <i class="element-icon far fa-folder"></i>
+              Folder1
+            </a>
+            <ul class="subfolder">
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File1
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File2
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File3
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File4
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="folder-element">
+            <a href="#">
+              <i class="fas fa-angle-down arrow-icon"></i>
+              <i class="element-icon far fa-folder"></i>
+              Folder2
+            </a>
+            <ul class="subfolder">
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File1
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File2
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File3
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File4
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="folder-element">
+            <a href="#">
+              <i class="fas fa-angle-down arrow-icon"></i>
+              <i class="element-icon far fa-folder"></i>
+              Folder3
+            </a>
+            <ul class="subfolder">
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File1
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File2
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="element-icon far fa-file"></i>File3
+                </a>
+              </li>
+              <li class="folder-element">
+                <a href="#">
+                  <i class="fas fa-angle-down arrow-icon"></i>
+                  <i class="element-icon far fa-folder"></i>
+                  Subfolder1
+                </a>
+                <ul class="subfolder">
+                  <li>
+                    <a href="#">
+                      <i class="element-icon far fa-file"></i>Sub File1
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="element-icon far fa-file"></i>Sub File2
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <!-- //Menu Principal -->
+    <!-- Contenido Principal -->
+    <main class="main-content">
+      <h1>Folders</h1>
+      <div id="content-folders" class="container-scroll">
+        <a class="element-folder" href="#">
+            <img src="img/folder_512.png" >
+            <p>Name Folder</p>
+        </a>
+        <a class="element-folder" href="#">
+            <img src="img/folder_512.png" >
+            <p>Name Folder</p>
+        </a>
+        <a class="element-folder" href="#">
+          <img src="img/folder_512.png" >
+          <p>Name Folder</p>
+        </a>
+        <a class="element-folder" href="#">
+          <img src="img/folder_512.png" >
+          <p>Name Folder</p>
+        </a>
+        <a class="element-folder" href="#">
+          <img src="img/folder_512.png" >
+          <p>Name Folder</p>
+        </a>
+      </div>
+
+      <h1>Files</h1>
+      <div id="content-files" class="container-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size</th>
+              <th>Type</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 1</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 2</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 3</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 3</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 3</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 3</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 3</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <!-- Contenido Principal -->
+  </body>
+  <!-- //Contenido Principal -->
+
+
+</html>
+
+
