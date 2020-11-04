@@ -1,7 +1,6 @@
-var path = require("path");
-
 //Python Shell
 const { PythonShell } = require("python-shell");
+const path = require("path");
 
 var optionsPython = {
     // mode: 'json',
@@ -9,27 +8,19 @@ var optionsPython = {
     scriptPath: path.join(__dirname, 'engine/'),
     args: []
 };
-//Inicializar Server
-let ScriptServer = new PythonShell("server/server.py", optionsPython);
-
-ScriptServer.on('message', function(out){
-    console.log(out);
-})
 
 $(document).ready(function(){
     //Adquirir nombre de Usuario
     let urlStr = window.location.href;
     let url = new URL(urlStr);
     let username = url.searchParams.get("username");
-    
-    
 
     const UploadContent = $(".main-content #container-upload");
     //Boton para subir Carpeta
     UploadContent.on("change", "#input-folder", function(e){
         // console.log($(this))
         //Obtener la ruta de la carpeta
-        let folder = $(this)[0].files[0]
+        let folder = $(this)[0].files[0];
         let arrAllPath = folder.path.split("\\");
         let startPath = folder.webkitRelativePath.split("/")[0];
         //Formar ruta completa

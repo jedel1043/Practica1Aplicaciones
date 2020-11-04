@@ -4,6 +4,8 @@ import pathlib
 import shutil
 from enum import IntEnum
 
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
 HOST = 'localhost'
 PORT = 50007
 BUFFER_SIZE = 4096  # buffer óptimo con tamaño pequeño y potencia de 2
