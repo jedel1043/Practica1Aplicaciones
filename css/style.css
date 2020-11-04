@@ -42,59 +42,40 @@ body{
     height: 100%;
     width: 100%;
 }
-aside.left-menu{
+#content-files{
     background-color: rgb(247, 249, 250);
-    width: 25vw;
+    width: 100%;
     /* height: 100%; */
     box-sizing: border-box;
-    padding: 50px 30px;
+    padding: 10px 30px;
 }
 
-.left-menu a.main-icon {
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-    padding:  13px 20px;
-    border-radius: 5px;
-    color: rgb(223, 223, 223);
-    margin-bottom: 25px;
-}
-.left-menu a.main-icon > i{
-    margin-right: 10px;
-}
-.left-menu a.main-icon#upload{
-    background-color: #292cf5;
-}
-.left-menu a.main-icon#home{
-    background-color: #7729f5;
-}
-
-.left-menu #all-folders p.main-title{
+#content-files p.main-title{
     font-size: 1.2em;
     font-weight: bold;
 }
 
-.left-menu #all-folders ul.subfolder {
+#content-files ul.subfolder {
     padding-left: 18px;
 }
-.left-menu #all-folders ul li a{
+#content-files ul li a{
     display: block;
     box-sizing: border-box;
     padding: 4px 0;
 }
-.left-menu #all-folders ul li a i{
+#content-files ul li a i{
     color: rgb(180, 178, 178);
 }
-.left-menu #all-folders ul li a i.element-icon{
+#content-files ul li a i.element-icon{
     margin-right: 10px;
 }
-.left-menu #all-folders ul li a i.arrow-icon{
+#content-files ul li a i.arrow-icon{
     margin-right: 12px;
 }
 /* Cuerpo Principal */
 main.main-content{
+    width: 100%;
     background-color: rgb(255, 255, 255);
-    width: 75vw;
     box-sizing: border-box;
     padding: 50px 30px;
 }
@@ -128,31 +109,6 @@ main.main-content h1{
     margin-top: 20px;
 }
 
-
-.main-content #content-files,
-.main-content #content-files table{
-    width: 100%;
-    height: 30%;
-    text-align: justify;
-}
-.main-content #content-files table thead tr th{
-    color: rgb(121, 121, 121);
-    padding: 10px 0 10px 20px;
-    border-bottom: 2px solid rgb(189, 189, 189);
-}
-
-.main-content #content-files table tbody tr td{
-    color: rgb(39, 39, 39);
-    padding: 18px 0 18px 20px;
-    border-bottom: 1px solid rgb(170, 170, 170);
-
-}
-
-.main-content #content-files table tbody tr td > i{
-    color: rgb(185, 185, 185);
-    font-size: 1.5em;
-    margin-right: 15px;
-}
 .main-content #content-files table tbody tr td > a.btn{
     font-size: 1.8em;
 }
@@ -165,8 +121,16 @@ main.main-content h1{
 }
 
 /*  -------------------  B U T T O N   F I L E  -------------------  */
-.upload-file{
-    width: 80%;
+#container-upload{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#container-upload  > h3{
+    margin: 0 20px;
+}
+#container-upload .upload-file{
+    flex: 2;
     margin: 0 auto 20px auto;
     text-align: center;
     background-color: #fff;

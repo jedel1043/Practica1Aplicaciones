@@ -15,17 +15,43 @@
     <link rel="stylesheet" href="css/scroll.css" type="text/css">
   </head>
   <body>
-    <!-- Menu Principal -->
-    <aside class="left-menu">
-        <a href="upload.html" class="main-icon" id="upload">
-          <i class="fas fa-plus"></i>
-          Upload File
-        </a>
+    <!-- Contenido Principal -->
+    <main class="main-content">
+      <h1>Subir Archivo</h1>
+      
+      <form id="container-upload" enctype="multipart/form-data">
+        <div class="upload-file col-50">
+          <p style="text-align: center" id="title-lexAn">Por favor, selecciona la carpeta</p>
+          <input type="file" id="input-folder" webkitdirectory directory multiple/>
+          <label for="input-folder" class="btn-2">Subir Carpeta</label>
+        </div>
+        
+        <h3 style="text-align: center;">O</h3>
 
-      <div id="all-folders">
-        <p href="#" class="main-title">
-          Files
-        </p>
+        <div class="upload-file col-50">
+          <p style="text-align: center" id="title-lexAn">Por favor, selecciona el archivo</p>
+          <input type="file" id="input-file"/>
+          <label for="input-file" class="btn-2">Subir Archivo</label>
+        </div>
+
+      </form>
+      <!-- Contenedor de Archivos -->
+      <h1>Todos los Archivos</h1>
+      <div id="content-files" class="container-scroll">
+          <!-- <tbody>
+            <tr>
+              <td><i class="element-icon far fa-file"></i>File 1</td>
+              <td>1.0 MB</td>
+              <td>Pdf</td>
+              <td>
+                <a href="#" class="btn btn-download">
+                  <i class="far fa-arrow-alt-circle-down"></i>
+                </a>
+                <a href="#"  class="btn btn-delete">
+                  <i class="far fa-times-circle"></i>
+                </a>
+              </td>
+            </tr> -->
         <ul id="folders">
           <li class="folder-element">
             <a href="#">
@@ -129,140 +155,7 @@
             </ul>
           </li>
         </ul>
-      </div>
-    </aside>
-    <!-- //Menu Principal -->
-    <!-- Contenido Principal -->
-    <main class="main-content">
-      <h1>Folders</h1>
-      <div id="content-folders" class="container-scroll">
-        <a class="element-folder" href="#">
-            <img src="img/folder_512.png" >
-            <p>Name Folder</p>
-        </a>
-        <a class="element-folder" href="#">
-            <img src="img/folder_512.png" >
-            <p>Name Folder</p>
-        </a>
-        <a class="element-folder" href="#">
-          <img src="img/folder_512.png" >
-          <p>Name Folder</p>
-        </a>
-        <a class="element-folder" href="#">
-          <img src="img/folder_512.png" >
-          <p>Name Folder</p>
-        </a>
-        <a class="element-folder" href="#">
-          <img src="img/folder_512.png" >
-          <p>Name Folder</p>
-        </a>
-      </div>
 
-      <h1>Files</h1>
-      <div id="content-files" class="container-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Size</th>
-              <th>Type</th>
-              <th>Options</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 1</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 2</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 3</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 3</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 3</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 3</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="element-icon far fa-file"></i>File 3</td>
-              <td>1.0 MB</td>
-              <td>Pdf</td>
-              <td>
-                <a href="#" class="btn btn-download">
-                  <i class="far fa-arrow-alt-circle-down"></i>
-                </a>
-                <a href="#"  class="btn btn-delete">
-                  <i class="far fa-times-circle"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </main>
     <!-- Contenido Principal -->
