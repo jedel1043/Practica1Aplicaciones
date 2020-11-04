@@ -226,7 +226,7 @@ main.main-content h1{
 main.login{
     width: 100vw;
     height: 100vh;
-    background-color: #4e88aa;
+    background-color: #ff4c2c;
     text-align: center;
     overflow: hidden;
 }
@@ -238,7 +238,7 @@ main.login{
     margin: 10% auto;
     padding: 15px 40px 30px 40px;
     box-sizing: border-box;
-    border: 3px solid #134562;
+    border: 3px solid #623913;
 }
 .login form#login-form label{
     margin: 20px 0;
@@ -269,6 +269,6 @@ main.login{
     border-radius: 5px; 
 }
 .login form#login-form input[type="submit"]:hover{
-    background-color:  #4e88aa;
+    background-color:  #aa734e;
     color: white;
 }
