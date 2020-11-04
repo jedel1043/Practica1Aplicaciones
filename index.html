@@ -7,129 +7,12 @@
     <title>My cloud!</title>
     <link href="https://fonts.googleapis.com/css2?family=Cabin&family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/db1bef7131.js" crossorigin="anonymous"></script>
-    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     
     <!-- ESTILOS CSS -->
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/scroll.css" type="text/css">
   </head>
   <body>
-    <!-- Menu Principal -->
-    <aside class="left-menu">
-        <a href="index.html" class="main-icon" id="home">
-          <i class="fas fa-home"></i> Home
-        </a>
-
-      <div id="all-folders">
-        <p href="#" class="main-title">
-          Files
-        </p>
-        <ul id="folders">
-          <li class="folder-element">
-            <a href="#">
-              <i class="fas fa-angle-down arrow-icon"></i>
-              <i class="element-icon far fa-folder"></i>
-              Folder1
-            </a>
-            <ul class="subfolder">
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File1
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File2
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File3
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File4
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="folder-element">
-            <a href="#">
-              <i class="fas fa-angle-down arrow-icon"></i>
-              <i class="element-icon far fa-folder"></i>
-              Folder2
-            </a>
-            <ul class="subfolder">
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File1
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File2
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File3
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File4
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="folder-element">
-            <a href="#">
-              <i class="fas fa-angle-down arrow-icon"></i>
-              <i class="element-icon far fa-folder"></i>
-              Folder3
-            </a>
-            <ul class="subfolder">
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File1
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File2
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="element-icon far fa-file"></i>File3
-                </a>
-              </li>
-              <li class="folder-element">
-                <a href="#">
-                  <i class="fas fa-angle-down arrow-icon"></i>
-                  <i class="element-icon far fa-folder"></i>
-                  Subfolder1
-                </a>
-                <ul class="subfolder">
-                  <li>
-                    <a href="#">
-                      <i class="element-icon far fa-file"></i>Sub File1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="element-icon far fa-file"></i>Sub File2
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </aside>
     <!-- //Menu Principal -->
     <!-- Contenido Principal -->
     <main class="main-content" id="drag-zone">
@@ -154,8 +37,11 @@
     <!-- Contenido Principal -->
   </body>
   <!-- //Contenido Principal -->
-  <script src="js/drag-drop.js"></script>
 
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="js/scripts.js"></script>
 </html>
 
 
