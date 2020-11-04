@@ -1,3 +1,5 @@
+const { dialog } = require('electron').remote
+
 //Python Shell
 const { PythonShell } = require("python-shell");
 const path = require("path");
@@ -9,36 +11,42 @@ var optionsPython = {
     args: []
 };
 
-$(document).ready(function(){
+$(document).ready(function () {
     //Adquirir nombre de Usuario
     let urlStr = window.location.href;
     let url = new URL(urlStr);
     let username = url.searchParams.get("username");
 
-    const UploadContent = $(".main-content #container-upload");
     //Boton para subir Carpeta
-    UploadContent.on("change", "#input-folder", function(e){
-        // console.log($(this))
-        //Obtener la ruta de la carpeta
-        let folder = $(this)[0].files[0];
-        let arrAllPath = folder.path.split("\\");
-        let startPath = folder.webkitRelativePath.split("/")[0];
-        //Formar ruta completa
-        let strPath = "C"+"://";
-        for (let i = 1; i < arrAllPath.length; i++) {
-            const element = arrAllPath[i];
-            strPath = strPath +  element + "/";
-            if(element == startPath){
-                break;
-            }
-        }
-        //Llamar script de python
-        optionsPython.args = [username, strPath];
-        let ScriptUploadFolder = new PythonShell("client/upload.py", optionsPython);
-
-        ScriptUploadFolder.on('message', function(out){
-            console.log(out);
+    $(".main-content #container-upload")
+        .on("click", "#input-folder", function (e) {
+            dialog.showOpenDialog({
+                properties: ['openDirectory']
+            }).then(function dialogResult(data) {
+                let paths = data.filePaths;
+                //Llamar script de python
+                if (paths) {
+                    optionsPython.args = [username, ...paths];
+                    new PythonShell("client/upload.py", optionsPython)
+                        .on('message', function (out) {
+                            console.log(out);
+                        });
+                }
+            }).catch(err => console.error(err));
         })
-    })
-    
+        .on("click", "#input-file", function (e) {
+            dialog.showOpenDialog({
+                properties: ['openFile', 'multiSelections']
+            }).then(function dialogResult(data) {
+                let paths = data.filePaths;
+                //Llamar script de python
+                if (paths) {
+                    optionsPython.args = [username, ...paths];
+                    new PythonShell("client/upload.py", optionsPython)
+                        .on('message', function (out) {
+                            console.log(out);
+                        });
+                }
+            }).catch(err => console.error(err));
+        });
 })

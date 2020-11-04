@@ -129,12 +129,13 @@ main.login{
 #container-upload .upload-file:hover{
     border-color: #4e88aa;
 }
-.upload-file [type="file"] {
+.upload-file [type="button"] {
     height: 0;
     overflow: hidden;
+    display: none;
     width: 0;
 }
-.upload-file [type="file"] + label {
+.upload-file [type="button"] + label {
     border: none;
     border-radius: 5px;
     color: #fff;
@@ -151,12 +152,12 @@ main.login{
     vertical-align: middle;
 }
 
-.upload-file [type="file"] + label.btn-2{
+.upload-file [type="button"] + label.btn-2{
     background-color: #94cde7;
     border-radius: 50px;
     overflow: hidden;
 }
-.upload-file [type="file"] + label.btn-2::before {
+.upload-file [type="button"] + label.btn-2::before {
     content: "\f382";
     font-family: "Font Awesome 5 Pro";
     font-size: 100%;
@@ -169,10 +170,10 @@ main.login{
     color: #fff;
 }
 
-.upload-file [type="file"] + label.btn-2:hover {
+.upload-file [type="button"] + label.btn-2:hover {
     background-color: #4e88aa;
 }
-.upload-file [type="file"] + label.btn-2:hover::before {
+.upload-file [type="button"] + label.btn-2:hover::before {
     right: 75%;
 }
 /* CONTENIDO DE CARPETAS */
