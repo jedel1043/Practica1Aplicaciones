@@ -234,11 +234,12 @@ main.login{
 .login form#login-form{
     background-color:  rgb(247, 249, 250);
     display: block;
-    width: 35%;
+    width: 45%;
     margin: 10% auto;
     padding: 15px 40px 30px 40px;
     box-sizing: border-box;
-    border: 3px solid #623913;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #5d1a0f;
 }
 .login form#login-form label{
     margin: 20px 0;

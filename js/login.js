@@ -6,6 +6,6 @@ $(document).ready(function(){
 
         let username = LoginWindow.find("#userInput").val();
         console.log(username);
-        window.location = "upload.html?username="+username;
+        window.location = "main.html?username="+username;
     })
 })
