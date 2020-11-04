@@ -12,41 +12,47 @@ var optionsPython = {
 };
 
 $(document).ready(function () {
-    //Adquirir nombre de Usuario
+    // Adquirir nombre de usuario
     let urlStr = window.location.href;
     let url = new URL(urlStr);
     let username = url.searchParams.get("username");
 
-    //Boton para subir Carpeta
-    $(".main-content #container-upload")
-        .on("click", "#input-folder", function (e) {
-            dialog.showOpenDialog({
-                properties: ['openDirectory']
-            }).then(function dialogResult(data) {
-                let paths = data.filePaths;
-                //Llamar script de python
-                if (paths) {
-                    optionsPython.args = [username, ...paths];
-                    new PythonShell("client/upload.py", optionsPython)
-                        .on('message', function (out) {
-                            console.log(out);
-                        });
-                }
-            }).catch(err => console.error(err));
-        })
-        .on("click", "#input-file", function (e) {
-            dialog.showOpenDialog({
-                properties: ['openFile', 'multiSelections']
-            }).then(function dialogResult(data) {
-                let paths = data.filePaths;
-                //Llamar script de python
-                if (paths) {
-                    optionsPython.args = [username, ...paths];
-                    new PythonShell("client/upload.py", optionsPython)
-                        .on('message', function (out) {
-                            console.log(out);
-                        });
-                }
-            }).catch(err => console.error(err));
-        });
-})
+    // Contenedor de botones para subir cosas
+    let uploadContainer = $(".main-content #container-upload");
+
+    // Evento para subir carpetas
+    uploadContainer.on("click", "#input-folder", async function pickSendDirs(e) {
+        let dirs = await dialog.showOpenDialog({
+            properties: ['openDirectory', 'multiSelections']
+        }).catch(err => console.error(err));
+
+        let paths = dirs.filePaths;
+
+        //Llama script de python si paths tiene rutas
+        if (paths) {
+            optionsPython.args = [username, ...paths];
+            new PythonShell("client/upload.py", optionsPython)
+                .on('message', function (out) {
+                    console.log(out);
+                });
+        }
+    });
+
+    // Evento para subir archivos
+    uploadContainer.on("click", "#input-file", async function pickSendFiles(e) {
+        let files = await dialog.showOpenDialog({
+            properties: ['openFile', 'multiSelections']
+        }).catch(err => console.error(err));
+
+        let paths = files.filePaths;
+
+        //Llama script de python si paths tiene rutas
+        if (paths) {
+            optionsPython.args = [username, ...paths];
+            new PythonShell("client/upload.py", optionsPython)
+                .on('message', function (out) {
+                    console.log(out);
+                });
+        }
+    });
+});
