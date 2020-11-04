@@ -1,13 +1,17 @@
 import socket
 import os
 import pathlib
+import sys
 from typing import List, Tuple
 from enum import IntEnum
+
 
 class Instruction(IntEnum):
     UPLOAD = 1
     DOWNLOAD = 2
     DELETE = 3
+    GET = 4
+
 
 HOST = 'localhost'
 PORT = 50007
@@ -28,6 +32,8 @@ BUFFER_SIZE = 4096  # buffer óptimo con tamaño pequeño y potencia de 2
     user: str - nombre de usuario que realiza la petición
     paths:   List[Tuple[rutas de los archivos a enviar, rutas que tendrán los archivos al recibirse en el servidor]]
 '''
+
+
 def upload_files(user: str, paths: List[Tuple[str, str]]):
     # abre un nuevo socket para conectarse con el servidor
     # socket.AF_INET = IPv4 socket
@@ -41,7 +47,7 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
         s.sendall(bytes([len(user)]))
 
         # "se envía un arreglo de bytes que se decodifica a "str"
-        # para obtener el nombre de usuario utilizando la codificación 
+        # para obtener el nombre de usuario utilizando la codificación
         # por defecto de python (UTF-8)
         s.sendall(user.encode())
 
@@ -51,7 +57,8 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
 
         # se reciben 2 bytes (16 bits) con el número de archivos;
         # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        print(f"Sending to server the number of files to send \"{len(paths)}\"")
+        print(
+            f"Sending to server the number of files to send \"{len(paths)}\"")
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for filepath, relpath in paths:
@@ -62,7 +69,7 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
                 filelen = os.path.getsize(f.name)
 
                 print("Getting ready to send file \"" + filepath
-                    + "\" of", filelen, "bytes")
+                      + "\" of", filelen, "bytes")
 
                 # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
                 # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
@@ -92,9 +99,10 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
                         delivered += rem
 
                     print("Sent", len(data),
-                        "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
+                          "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
                 print("Correcly sent file \"" + filepath + "\" to server")
                 print()
+
 
 ''' Formato para la descarga de archivos:
     1 byte:  longitud del nombre de usuario
@@ -110,6 +118,7 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
     paths:   List[Tuple[rutas de los archivos a borrar]]
 '''
 
+
 def download_files(user: str, paths: List[Tuple[str, str]]):
     # abre un nuevo socket para conectarse con el servidor
     # socket.AF_INET = IPv4 socket
@@ -123,7 +132,7 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
         s.sendall(bytes([len(user)]))
 
         # se envía un arreglo de bytes que se decodifica a "str"
-        # para obtener el nombre de usuario utilizando la codificación 
+        # para obtener el nombre de usuario utilizando la codificación
         # por defecto de python (UTF-8)
         s.sendall(user.encode())
 
@@ -132,7 +141,8 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
 
         # se envían 2 bytes (16 bits) con el número de archivos;
         # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        print(f"Sending to server the number of files to delete \"{len(paths)}\"")
+        print(
+            f"Sending to server the number of files to delete \"{len(paths)}\"")
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for path in paths:
@@ -169,11 +179,13 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
                     # último byte
                     byte_counter = 0
                     while byte_counter < filelen:
-                        temp_data = s.recv(BUFFER_SIZE if (rem := filelen - byte_counter) > BUFFER_SIZE else rem)
+                        temp_data = s.recv(BUFFER_SIZE if (
+                            rem := filelen - byte_counter) > BUFFER_SIZE else rem)
                         byte_counter += len(temp_data)
                         f.write(temp_data)
 
-                        print(f"Received {len(temp_data)} bytes ({str(byte_counter * 100 // filelen)}% completed)")
+                        print(
+                            f"Received {len(temp_data)} bytes ({str(byte_counter * 100 // filelen)}% completed)")
 
                 print("Correcly downloaded file \"" + path + "\" from server")
                 print()
@@ -195,6 +207,7 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
     paths:   List[Tuple[rutas de los archivos a borrar]]
 '''
 
+
 def delete_files(user: str, paths: List[Tuple[str, str]]):
     # abre un nuevo socket para conectarse con el servidor
     # socket.AF_INET = IPv4 socket
@@ -208,7 +221,7 @@ def delete_files(user: str, paths: List[Tuple[str, str]]):
         s.sendall(bytes([len(user)]))
 
         # se envía un arreglo de bytes que se decodifica a "str"
-        # para obtener el nombre de usuario utilizando la codificación 
+        # para obtener el nombre de usuario utilizando la codificación
         # por defecto de python (UTF-8)
         s.sendall(user.encode())
 
@@ -217,7 +230,8 @@ def delete_files(user: str, paths: List[Tuple[str, str]]):
 
         # se envían 2 bytes (16 bits) con el número de archivos;
         # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        print(f"Sending to the server the number of paths to delete \"{len(paths)}\"")
+        print(
+            f"Sending to the server the number of paths to delete \"{len(paths)}\"")
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for path in paths:
@@ -232,7 +246,54 @@ def delete_files(user: str, paths: List[Tuple[str, str]]):
             # sendall() no acepta str como argumento, solamente arreglos de bytes,
             # por lo que la cadena "relpath" se convierte a bytes
             # utilizando la codificación de python por defecto (UTF-8)
-            s.sendall(path.encode())    
+            s.sendall(path.encode())
 
             print("Correcly deleted file \"" + path + "\" in server")
             print()
+
+
+''' Formato para la consulta de archivos:
+    1 byte: longitud del nombre de usuario
+    n bytes: nombre de usuario
+'''
+
+'''
+    user: str - nombre de usuario que realiza la petición
+'''
+
+
+def get_files(user: str):
+    # abre un nuevo socket para conectarse con el servidor
+    # socket.AF_INET = IPv4 socket
+    # socket.SOCK_STREAM habilita el protocolo TCP
+    # "with" cierra el socket al salir de su contexto
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+
+        # se envía 1 byte (8 bits) de tamaño de nombre de usuario;
+        # el nombre de usuario no deberá superar los 2^8 - 1 bytes (256 bytes)
+        s.sendall(bytes([len(user)]))
+
+        # se envía un arreglo de bytes que se decodifica a "str"
+        # para obtener el nombre de usuario utilizando la codificación
+        # por defecto de python (UTF-8)
+        s.sendall(user.encode())
+
+        # se envía 1 byte (8 bits) con el tipo de instrucción a realizar;
+        s.sendall(bytes([Instruction.GET]))
+
+        # se reciben 4 bytes (32 bits) de tamaño del json;
+        # el json a recibir no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
+        filelen = int.from_bytes(s.recv(4), byteorder="big")
+
+        if filelen > 0:
+            byte_counter = 0
+            result = bytes([])
+            while byte_counter < filelen:
+                rem = filelen - byte_counter
+                temp_data = s.recv(BUFFER_SIZE if rem > BUFFER_SIZE else rem)
+                byte_counter += len(temp_data)
+                result += temp_data
+            sys.stdout.write(result.decode())
+        else:
+            sys.stderr.write("Error obtaining info.")
