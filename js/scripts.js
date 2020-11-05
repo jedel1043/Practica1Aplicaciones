@@ -18,6 +18,12 @@ $(document).ready(function () {
     let username = url.searchParams.get("username");
 
     //LLenar el archivo con los archivos del usuario
+    let userPath = path.join(__dirname, 'engine/server/',username, '/')
+    optionsPython.args = [userPath];
+    new PythonShell("server/read.py", optionsPython)
+        .on('message', function (out) {
+            console.log(out);
+        });
 
     //Boton para subir Carpeta
     $(".main-content #container-upload")
