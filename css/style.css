@@ -1,7 +1,6 @@
 h1,h2{
     font-family: 'Oswald', sans-serif;
 }
-
 h3,h4,h5{
     font-family: 'Cabin', sans-serif;   
 }
@@ -34,7 +33,6 @@ button.btn{
     border: none;
 }
 
-/* Menu Principal */
 body{
     display: flex;
     flex-direction: row;
@@ -42,55 +40,6 @@ body{
     height: 100%;
     width: 100%;
 }
-#content-files{
-    background-color: rgb(247, 249, 250);
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px 30px;
-    font-size: 1.2em;
-}
-#content-files .title-container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-#content-files .title-container > a.main-title{
-    flex: 1
-}
-#content-files .btn-container{
-    box-sizing: border-box;
-    flex: 4;
-    display: flex;
-    flex-direction: row;
-    font-size: 1.3em;
-    
-}
-#content-files .btn-container a.btn.btn-download i{
-    color: #29aaf5!important;
-    margin-right: 15px;
-}
-#content-files .btn-container a.btn.btn-delete i{
-    color: #f52944!important;
-}
-
-#content-files ul.subfolder {
-    padding-left: 18px;
-}
-#content-files ul li a{
-    display: block;
-    box-sizing: border-box;
-    padding: 4px 0;
-}
-#content-files ul li a i{
-    color: rgb(180, 178, 178);
-}
-#content-files ul li a i.element-icon{
-    margin-right: 10px;
-}
-#content-files ul li a i.arrow-icon{
-    margin-right: 12px;
-}
-
 /* Cuerpo Principal */
 main.main-content{
     width: 100%;
@@ -104,36 +53,60 @@ main.main-content h1{
     font-size: 1.8em;
 }
 
-.main-content #content-folders{
-    width: auto;
-    height: 150px;
-    margin-bottom: 50px;
-    white-space: nowrap;
-    overflow-y: hidden;
-    overflow-x: auto;
-    padding-bottom: 25px;
-}
-.main-content #content-folders .element-folder{
-    display: inline-block;
-    height: 100%;
-    width: 150px;
-    background-color: rgb(242, 244, 245);
+
+/*  -------------------  PAGINA DE LOGIN  -------------------  */
+main.login{
+    width: 100vw;
+    height: 100vh;
+    background-color: #ff4c2c;
     text-align: center;
-    margin-right: 25px;
-    border-radius: 5px;
-    color: rgb(43, 43, 43);
-}
-.main-content #content-folders .element-folder img{
-    width: 60px;
-    margin-top: 20px;
+    overflow: hidden;
 }
 
-.main-content #content-files table tbody tr td > a.btn{
-    font-size: 1.8em;
+.login form#login-form{
+    background-color:  rgb(247, 249, 250);
+    display: block;
+    width: 45%;
+    margin: 10% auto;
+    padding: 15px 40px 30px 40px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #5d1a0f;
+}
+.login form#login-form label{
+    margin: 20px 0;
+    width: 100%;
+    text-align: center;
+}
+.login form#login-form input[type="text"],
+.login form#login-form input[type="password"]{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1em 1.5em;
+    font-size: .8em;
+    border-radius: 1.5em;
+    border-style: none;
+    border: 1px solid #ccc;
+}
+.login form#login-form input[type="submit"]{
+    appearance: none;
+    cursor: pointer;
+    border-style: none;
+    box-sizing: border-box;
+    padding: .8em 2em;
+    font-size: .8em;
+    margin: 30px 0 0 auto;
+    text-align: right;
+    background-color:  rgb(217, 225, 230);
+    font-size: .9em;
+    border-radius: 5px; 
+}
+.login form#login-form input[type="submit"]:hover{
+    background-color:  #aa734e;
+    color: white;
 }
 
-
-/*  -------------------  B U T T O N   F I L E  -------------------  */
+/*  -------------------  SUBIR ARCHIVOS  -------------------  */
 #container-upload{
     display: flex;
     flex-direction: row;
@@ -199,54 +172,50 @@ main.main-content h1{
 .upload-file [type="file"] + label.btn-2:hover::before {
     right: 75%;
 }
-/*  -------------------  L O G I N    P A G E  -------------------  */
-main.login{
-    width: 100vw;
-    height: 100vh;
-    background-color: #ff4c2c;
-    text-align: center;
-    overflow: hidden;
+/* CONTENIDO DE CARPETAS */
+#content-files{
+    background-color: rgb(247, 249, 250);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 30px;
+    font-size: 1.2em;
 }
-
-.login form#login-form{
-    background-color:  rgb(247, 249, 250);
+#content-files .title-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#content-files .title-container > a.main-title{
+    flex: 1
+}
+#content-files .btn-container{
+    box-sizing: border-box;
+    flex: 4;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3em;
+}
+#content-files .btn-container a.btn.btn-download i{
+    color: #29aaf5!important;
+    margin-right: 15px;
+}
+#content-files .btn-container a.btn.btn-delete i{
+    color: #f52944!important;
+}
+#content-files ul.subfolder {
+    padding-left: 18px;
+}
+#content-files ul li a{
     display: block;
-    width: 45%;
-    margin: 10% auto;
-    padding: 15px 40px 30px 40px;
     box-sizing: border-box;
-    border-radius: 10px;
-    box-shadow: 5px 5px 10px #5d1a0f;
+    padding: 4px 0;
 }
-.login form#login-form label{
-    margin: 20px 0;
-    width: 100%;
-    text-align: center;
+#content-files ul li a i{
+    color: rgb(180, 178, 178);
 }
-.login form#login-form input[type="text"],
-.login form#login-form input[type="password"]{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 1em 1.5em;
-    font-size: .8em;
-    border-radius: 1.5em;
-    border-style: none;
-    border: 1px solid #ccc;
+#content-files ul li a i.element-icon{
+    margin-right: 10px;
 }
-.login form#login-form input[type="submit"]{
-    appearance: none;
-    cursor: pointer;
-    border-style: none;
-    box-sizing: border-box;
-    padding: .8em 2em;
-    font-size: .8em;
-    margin: 30px 0 0 auto;
-    text-align: right;
-    background-color:  rgb(217, 225, 230);
-    font-size: .9em;
-    border-radius: 5px; 
-}
-.login form#login-form input[type="submit"]:hover{
-    background-color:  #aa734e;
-    color: white;
+#content-files ul li a i.arrow-icon{
+    margin-right: 12px;
 }
