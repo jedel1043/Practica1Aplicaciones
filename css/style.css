@@ -54,7 +54,7 @@ main.main-content h1{
 }
 
 
-/*  -------------------  PAGINA DE LOGIN  -------------------  */
+/*  -----------------------------------  PAGINA DE LOGIN  -----------------------------------  */
 main.login{
     width: 100vw;
     height: 100vh;
@@ -106,7 +106,7 @@ main.login{
     color: white;
 }
 
-/*  -------------------  SUBIR ARCHIVOS  -------------------  */
+/*  -------------------------------------------  SUBIR ARCHIVOS  -------------------------------------------  */
 #container-upload{
     display: flex;
     flex-direction: row;
@@ -125,6 +125,9 @@ main.login{
     border-collapse: separate;
     border-style: dashed;
     border-color: #94cde7;
+}
+#container-upload .upload-file:hover{
+    border-color: #4e88aa;
 }
 .upload-file [type="file"] {
     height: 0;
