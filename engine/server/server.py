@@ -170,39 +170,107 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                             print()
                     elif instr == Instruction.DOWNLOAD:
                         if os.path.exists(relpath):
-                            with open(relpath, 'rb') as f:
-                                filelen = os.path.getsize(f.name)
-                                print(
-                                    f"Getting ready to send file \"{relpath}\" of {filelen} bytes")
+                            if os.path.isfile(relpath):
+                                # envía 4 bytes (16 bits) de tamaño de archivos;
+                                # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
+                                conn.sendall((1).to_bytes(4, byteorder='big'))
+                                with open(relpath, 'rb') as f:
+                                    pathsav = pathlib.Path(relpath)
+                                    newpath = str(pathlib.Path(*pathsav.parts[2:]))
+                                    pathlen = len(newpath)
 
-                                # envía 4 bytes (32 bits) de tamaño del archivo;
-                                # el archivo a enviar no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
-                                conn.sendall(filelen.to_bytes(
-                                    4, byteorder="big"))
+                                    # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
+                                    # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
+                                    conn.sendall(pathlen.to_bytes(2, byteorder="big"))
 
-                                # envía bytes hasta alcanzar el final del archivo (EOF)
-                                byte_counter = 0
-                                while byte_counter < filelen:
-                                    data = f.read(BUFFER_SIZE)
-                                    byte_counter += len(data)
+                                    # sendall() no acepta str como argumento, solamente arreglos de bytes,
+                                    # por lo que la cadena "relpath" se convierte a bytes
+                                    # utilizando la codificación de python por defecto (UTF-8)
+                                    conn.sendall(newpath.encode())
 
-                                    delivered = conn.send(data)
+                                    filelen = os.path.getsize(f.name)
+                                    print(
+                                        f"Getting ready to send file \"{relpath}\" of {filelen} bytes")
 
-                                    # si "data" se envía incompleto, intenta enviar los bytes restantes
-                                    # para evitar perder información
-                                    while (delivered < len(data)):
-                                        rem = conn.send(data[delivered:])
-                                        delivered += rem
+                                    # envía 4 bytes (32 bits) de tamaño del archivo;
+                                    # el archivo a enviar no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
+                                    conn.sendall(filelen.to_bytes(
+                                        4, byteorder="big"))
 
-                                    print("Sent", len(data),
-                                          "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
-                                print("Correcly sent file \"" +
-                                      relpath + "\" to client")
-                                print()
+                                    # envía bytes hasta alcanzar el final del archivo (EOF)
+                                    byte_counter = 0
+                                    while byte_counter < filelen:
+                                        data = f.read(BUFFER_SIZE)
+                                        byte_counter += len(data)
+
+                                        delivered = conn.send(data)
+
+                                        # si "data" se envía incompleto, intenta enviar los bytes restantes
+                                        # para evitar perder información
+                                        while (delivered < len(data)):
+                                            rem = conn.send(data[delivered:])
+                                            delivered += rem
+
+                                        print("Sent", len(data),
+                                            "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
+                                    print("Correcly sent file \"" +
+                                        relpath + "\" to client")
+                                    print()
+                            else:
+                                paths = []
+                                # se buscan recursivamente todos los archivos dentro del directorio
+                                for root, _, files in os.walk(relpath):
+                                    for f in files:
+                                        # ruta absoluta para acceder al archivo
+                                        paths.append(os.path.join(root, f))
+
+                                # envía 4 bytes (16 bits) de tamaño de archivos;
+                                # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
+                                conn.sendall(len(paths).to_bytes(4, byteorder='big'))
+                                for file in paths:
+                                    with open(file, 'rb') as f:
+                                        pathsav = pathlib.Path(file)
+                                        newpath = str(pathlib.Path(*pathsav.parts[1:]))
+                                        pathlen = len(newpath)
+                                        # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
+                                        # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
+                                        conn.sendall(pathlen.to_bytes(2, byteorder="big"))
+
+                                        # sendall() no acepta str como argumento, solamente arreglos de bytes,
+                                        # por lo que la cadena "relpath" se convierte a bytes
+                                        # utilizando la codificación de python por defecto (UTF-8)
+                                        conn.sendall(newpath.encode())
+
+                                        filelen = os.path.getsize(f.name)
+                                        print(f"Getting ready to send file \"{file}\" of {filelen} bytes")
+
+                                        # envía 4 bytes (32 bits) de tamaño del archivo;
+                                        # el archivo a enviar no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
+                                        conn.sendall(filelen.to_bytes(4, byteorder="big"))
+
+                                        # envía bytes hasta alcanzar el final del archivo (EOF)
+                                        byte_counter = 0
+                                        while byte_counter < filelen:
+                                            data = f.read(BUFFER_SIZE)
+                                            byte_counter += len(data)
+
+                                            delivered = conn.send(data)
+
+                                            # si "data" se envía incompleto, intenta enviar los bytes restantes
+                                            # para evitar perder información
+                                            while (delivered < len(data)):
+                                                rem = conn.send(data[delivered:])
+                                                delivered += rem
+
+                                            print("Sent", len(data),
+                                                "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
+                                        print("Correcly sent file \"" +
+                                            file + "\" to client")
+                                        print()
                         else:
-                            print(f"File \"{relpath}\" not found in server")
+                            print(f"Path \"{relpath}\" not found in server")
                             # envía 0s para indicar que el archivo no existe
-                            s.sendall(bytes([0, 0, 0, 0]))
+                            conn.sendall(bytes([0, 0, 0, 0]))
 
                     elif instr == Instruction.DELETE:
                         if os.path.exists(relpath):

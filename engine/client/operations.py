@@ -139,16 +139,12 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
         # se envía 1 byte (8 bits) con el tipo de instrucción a realizar;
         s.sendall(bytes([Instruction.DOWNLOAD]))
 
-        # se envían 2 bytes (16 bits) con el número de archivos;
-        # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        # print(
-        #     f"Sending to server the number of files to delete \"{len(paths)}\"")
+        # se envían 2 bytes (16 bits) con el número de rutas;
+        # el número de rutas no deberá superar los 2^16 - 1 bytes (65536 bytes)
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for path in paths:
             pathlen = len(path)
-
-            # print(f"Getting ready to download file \"{path}\"")
 
             # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
             # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
@@ -159,39 +155,49 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
             # utilizando la codificación de python por defecto (UTF-8)
             s.sendall(path.encode())
 
-            # se reciben 4 bytes (32 bits) de tamaño del archivo;
-            # el archivo a recibir no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
-            filelen = int.from_bytes(s.recv(4), byteorder="big")
+            # se reciben 4 bytes (32 bits) de número de archivos;
+            # el número de archivos a recibir no deberán superar los 2^32 - 1 bytes (approx. 4 GB)
+            filenum = int.from_bytes(s.recv(4), byteorder="big")
 
-            if filelen > 0:
+            for _ in range(filenum):
 
-                # print("Receiving file \"" + path + "\" of", filelen, "bytes")
+                # se reciben 2 bytes (16 bits) de tamaño de ruta del archivo;
+                # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
+                pathlen = int.from_bytes(s.recv(2), byteorder="big")
 
-                dirname, _ = os.path.split(path)
+                # "recv" devuelve un arreglo de bytes que se decodifica a "str"
+                # para obtener la ruta del archivo utilizando la codificación
+                # por defecto de python (UTF-8)
+                relpath = s.recv(pathlen).decode()
+
+                dirname, basename = os.path.split(relpath)
+                print(dirname)
+                print(basename)
+
                 if dirname and not os.path.exists(dirname):
                     pathlib.Path(dirname).mkdir(parents=True)
-                    # print("Created directory \"" + dirname + "\"")
 
-                # with cierra automáticamente el archivo después de salir de su contexto
-                with open(path, "wb") as f:
+                if basename:
 
-                    # escribe bytes en el archivo de salida hasta recibir el
-                    # último byte
-                    byte_counter = 0
-                    while byte_counter < filelen:
-                        temp_data = s.recv(BUFFER_SIZE if (
-                            rem := filelen - byte_counter) > BUFFER_SIZE else rem)
-                        byte_counter += len(temp_data)
-                        f.write(temp_data)
+                    # se reciben 4 bytes (32 bits) de tamaño del archivo;
+                    # el archivo a recibir no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
+                    filelen = int.from_bytes(s.recv(4), byteorder="big")
 
-                        # print(
-                            # f"Received {len(temp_data)} bytes ({str(byte_counter * 100 // filelen)}% completed)")
+                    if filelen > 0:
 
-                # print("Correcly downloaded file \"" + path + "\" from server")
-                # print()
-            else:
-                1
-                # print(f"File {path} not found in server. Skipping.")
+                        # with cierra automáticamente el archivo después de salir de su contexto
+                        with open(relpath, "wb") as f:
+
+                            # escribe bytes en el archivo de salida hasta recibir el
+                            # último byte
+                            byte_counter = 0
+                            while byte_counter < filelen:
+                                temp_data = s.recv(BUFFER_SIZE if (
+                                    rem := filelen - byte_counter) > BUFFER_SIZE else rem)
+                                byte_counter += len(temp_data)
+                                f.write(temp_data)
+                    else:
+                        1
 
 
 ''' Formato para el envío de archivos:
