@@ -57,8 +57,8 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
 
         # se reciben 2 bytes (16 bits) con el número de archivos;
         # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        print(
-            f"Sending to server the number of files to send \"{len(paths)}\"")
+        # print(
+        #     f"Sending to server the number of files to send \"{len(paths)}\"")
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for filepath, relpath in paths:
@@ -68,8 +68,8 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
                 pathlen = len(relpath)
                 filelen = os.path.getsize(f.name)
 
-                print("Getting ready to send file \"" + filepath
-                      + "\" of", filelen, "bytes")
+                # print("Getting ready to send file \"" + filepath
+                #       + "\" of", filelen, "bytes")
 
                 # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
                 # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
@@ -98,10 +98,10 @@ def upload_files(user: str, paths: List[Tuple[str, str]]):
                         rem = s.send(data[delivered:])
                         delivered += rem
 
-                    print("Sent", len(data),
-                          "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
-                print("Correcly sent file \"" + filepath + "\" to server")
-                print()
+                #     print("Sent", len(data),
+                #           "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
+                # print("Correcly sent file \"" + filepath + "\" to server")
+                # print()
 
 
 ''' Formato para la descarga de archivos:
@@ -141,14 +141,14 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
 
         # se envían 2 bytes (16 bits) con el número de archivos;
         # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        print(
-            f"Sending to server the number of files to delete \"{len(paths)}\"")
+        # print(
+        #     f"Sending to server the number of files to delete \"{len(paths)}\"")
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for path in paths:
             pathlen = len(path)
 
-            print(f"Getting ready to download file \"{path}\"")
+            # print(f"Getting ready to download file \"{path}\"")
 
             # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
             # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
@@ -165,12 +165,12 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
 
             if filelen > 0:
 
-                print("Receiving file \"" + path + "\" of", filelen, "bytes")
+                # print("Receiving file \"" + path + "\" of", filelen, "bytes")
 
                 dirname, _ = os.path.split(path)
                 if dirname and not os.path.exists(dirname):
                     pathlib.Path(dirname).mkdir(parents=True)
-                    print("Created directory \"" + dirname + "\"")
+                    # print("Created directory \"" + dirname + "\"")
 
                 # with cierra automáticamente el archivo después de salir de su contexto
                 with open(path, "wb") as f:
@@ -184,13 +184,14 @@ def download_files(user: str, paths: List[Tuple[str, str]]):
                         byte_counter += len(temp_data)
                         f.write(temp_data)
 
-                        print(
-                            f"Received {len(temp_data)} bytes ({str(byte_counter * 100 // filelen)}% completed)")
+                        # print(
+                            # f"Received {len(temp_data)} bytes ({str(byte_counter * 100 // filelen)}% completed)")
 
-                print("Correcly downloaded file \"" + path + "\" from server")
-                print()
+                # print("Correcly downloaded file \"" + path + "\" from server")
+                # print()
             else:
-                print(f"File {path} not found in server. Skipping.")
+                1
+                # print(f"File {path} not found in server. Skipping.")
 
 
 ''' Formato para el envío de archivos:
@@ -230,14 +231,14 @@ def delete_files(user: str, paths: List[Tuple[str, str]]):
 
         # se envían 2 bytes (16 bits) con el número de archivos;
         # el número de archivos no deberá superar los 2^16 - 1 bytes (65536 bytes)
-        print(
-            f"Sending to the server the number of paths to delete \"{len(paths)}\"")
+        # print(
+        #     f"Sending to the server the number of paths to delete \"{len(paths)}\"")
         s.sendall(len(paths).to_bytes(2, byteorder="big"))
 
         for path in paths:
             pathlen = len(path)
 
-            print(f"Getting ready to delete file \"{path}\"")
+            # print(f"Getting ready to delete file \"{path}\"")
 
             # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
             # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
@@ -248,8 +249,8 @@ def delete_files(user: str, paths: List[Tuple[str, str]]):
             # utilizando la codificación de python por defecto (UTF-8)
             s.sendall(path.encode())
 
-            print("Correcly deleted file \"" + path + "\" in server")
-            print()
+            # print("Correcly deleted file \"" + path + "\" in server")
+            # print()
 
 
 ''' Formato para la consulta de archivos:
@@ -294,6 +295,7 @@ def get_files(user: str):
                 temp_data = s.recv(BUFFER_SIZE if rem > BUFFER_SIZE else rem)
                 byte_counter += len(temp_data)
                 result += temp_data
-            sys.stdout.write(result.decode())
+            print(result.decode())
         else:
-            sys.stderr.write("Error obtaining info.")
+            if filelen == 0:
+                sys.stderr.write("error receiving json")

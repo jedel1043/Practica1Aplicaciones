@@ -55,6 +55,7 @@ class Instruction(IntEnum):
 #   de su contexto
 print('Starting server on port', PORT)
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((HOST, PORT))
     s.listen(1)
 
@@ -89,8 +90,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             instr = conn.recv(1)[0]
 
             if instr == Instruction.GET:
-                tree = fs_tree(username)
-                out = json.dumps(tree).encode()
+                if not os.path.isdir(username):
+                    out = "{}".encode()
+                else:
+                    tree = fs_tree(username)
+                    out = json.dumps(tree).encode()
                 filelen = len(out)
                 # envía 4 bytes (32 bits) de tamaño del archivo;
                 # el archivo a enviar no deberá superar los 2^32 - 1 bytes (approx. 4 GB)
@@ -102,17 +106,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     rem = byte_counter + BUFFER_SIZE
                     data = out[byte_counter:rem if rem < filelen else filelen]
                     byte_counter += len(data)
-
                     delivered = conn.send(data)
-
                     # si "data" se envía incompleto, intenta enviar los bytes restantes
                     # para evitar perder información
                     while (delivered < len(data)):
                         rem = conn.send(data[delivered:])
                         delivered += rem
-
                     print("Sent", len(data),
-                          "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
+                        "bytes (" + str(byte_counter * 100 // filelen) + "% completed)")
                 print("Correcly sent json to client")
                 print()
             else:

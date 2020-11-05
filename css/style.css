@@ -190,7 +190,7 @@ main.login{
     align-items: center;
 }
 #content-files .title-container > a.main-title{
-    flex: 1
+    flex: 3
 }
 #content-files .btn-container{
     box-sizing: border-box;

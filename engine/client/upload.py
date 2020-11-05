@@ -33,7 +33,9 @@ for arg in sys.argv[2::]:
     # ignora argumentos de entrada inválidos para
     # procesar todos los archivos posibles
     else:
-        print("path not found")
+        1
+        # print("path not found")
 
 # realiza el envío de los archivos
 upload_files(sys.argv[1], paths)
+print("finished")
