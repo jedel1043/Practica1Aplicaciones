@@ -33,7 +33,7 @@ $(document).ready(function(){
         let arrAllPath = folder.path.split("\\");
         let startPath = folder.webkitRelativePath.split("/")[0];
         //Formar ruta completa
-        let strPath = "C://";
+        let strPath = "C"+"://";
         for (let i = 1; i < arrAllPath.length; i++) {
             const element = arrAllPath[i];
             strPath = strPath +  element + "/";
