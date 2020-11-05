@@ -19,6 +19,6 @@ $(document).ready(function(){
     // })
     let urlStr = window.location.href;
     let url = new URL(urlStr);
-    let username = url.searchParams.get("user");
+    let username = url.searchParams.get("username");
     console.log(username);
 })

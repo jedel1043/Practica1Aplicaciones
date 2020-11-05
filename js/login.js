@@ -5,7 +5,6 @@ $(document).ready(function(){
         e.preventDefault();
 
         let username = LoginWindow.find("#userInput").val();
-        console.log(username);
         window.location = "main.html?username="+username;
     })
 })
