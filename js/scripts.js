@@ -17,6 +17,8 @@ $(document).ready(function () {
     let url = new URL(urlStr);
     let username = url.searchParams.get("username");
 
+    //LLenar el archivo con los archivos del usuario
+
     //Boton para subir Carpeta
     $(".main-content #container-upload")
         .on("click", "#input-folder", function (e) {
