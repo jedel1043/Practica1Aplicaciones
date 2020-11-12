@@ -171,12 +171,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     elif instr == Instruction.DOWNLOAD:
                         if os.path.exists(relpath):
                             if os.path.isfile(relpath):
-                                # envía 4 bytes (16 bits) de tamaño de archivos;
+                                # envía 4 bytes (16 bits) de tamaño de archivo;
                                 # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)
                                 conn.sendall((1).to_bytes(4, byteorder='big'))
                                 with open(relpath, 'rb') as f:
-                                    pathsav = pathlib.Path(relpath)
-                                    newpath = str(pathlib.Path(*pathsav.parts[2:]))
+                                    newpath = os.path.basename(relpath)
                                     pathlen = len(newpath)
 
                                     # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
@@ -229,8 +228,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                                 conn.sendall(len(paths).to_bytes(4, byteorder='big'))
                                 for file in paths:
                                     with open(file, 'rb') as f:
-                                        pathsav = pathlib.Path(file)
-                                        newpath = str(pathlib.Path(*pathsav.parts[1:]))
+                                        basedir = os.path.dirname(relpath)
+                                        newpath = os.path.relpath(file, basedir)
                                         pathlen = len(newpath)
                                         # envía 2 bytes (16 bits) de tamaño de ruta del archivo;
                                         # la longitud de ruta no deberá superar los 2^16 - 1 bytes (65536 bytes)

@@ -11,75 +11,110 @@ var optionsPython = {
     args: []
 };
 
-const baseFile = $(`
-<li>
-    <a href="#">
-        <i class="element-icon far fa-file"></i>
-    </a>
-</li>
-`)
-
-const baseFolder = $(`
-<li class="folder-element">
-    <div class="title-container">
-        <a href="#" class="main-title">
-            <i class="fas fa-angle-down arrow-icon"></i>
-            <i class="element-icon far fa-folder"></i>
-        </a>
-        <div class="btn-container">
-            <!-- <a href="#" class="btn btn-download">
-                <i class="far fa-arrow-alt-circle-down"></i>
-            </a> -->
-            <a href="#"  class="btn btn-delete">
-                <i class="far fa-times-circle"></i>
-            </a>
-        </div>
-    </div>
-    <ul class="subfolder"></ul>
-</li>
-`)
-
-
-
-
 
 $(document).ready(function () {
     // Adquirir nombre de usuario
     var urlStr = window.location.href;
     var url = new URL(urlStr);
     var username = url.searchParams.get("username");
-    let userdata;
+    // Contenedor de botones para subir cosas
+    var uploadContainer = $(".main-content #container-upload");
 
     optionsPython.args = [username];
 
     new PythonShell("client/get.py", optionsPython)
         .on('message', function (out) {
-            userdata = JSON.parse(out);
+            let userdata = JSON.parse(out);
             // Contenedor de carpetas
             var folders = $("#folders").empty();
 
             if (Object.keys(userdata).length != 0) {
-
-                (function printTree(obj, elem) {
+                (function printTree(obj, elem, oldPath) {
                     obj.dirs.forEach(newDirObj => {
-                        newDirDOM = baseFolder.clone(true);
-                        newDirDOM.children().first().children().first().append(newDirObj.name)
+                        let newPath = path.join(oldPath, newDirObj.name);
+
+                        let newDirDOM = $(`
+                            <li class="folder-element" path="${newPath}">
+                                <div class="title-container">
+                                    <a href="#" class="main-title">
+                                        <i class="fas fa-angle-down arrow-icon"></i>
+                                        <i class="element-icon far fa-folder"></i>
+                                        ${newDirObj.name}
+                                    </a>
+                                    <div class="btn-container">
+                                        <a href="#" class="btn btn-download">
+                                            <i class="far fa-arrow-alt-circle-down"></i>
+                                        </a>
+                                        <a href="#"  class="btn btn-delete">
+                                            <i class="far fa-times-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <ul class="subfolder"></ul>
+                            </li>
+                        `);
 
                         elem.append(newDirDOM);
-                        printTree(newDirObj, newDirDOM.children().eq(1));
+                        printTree(newDirObj, newDirDOM.children().eq(1), newPath);
                     });
 
                     obj.files.forEach(filename => {
-                        newFileDOM = baseFile.clone(true);
-                        newFileDOM.children().first().append(filename)
+                        let newPath = path.join(oldPath, filename);
+                        newFileDOM = $(`
+                            <li path="${newPath}">
+                                <div class="title-container">
+                                    <a href="#" class="main-title">
+                                        <i class="element-icon far fa-file"></i>
+                                        ${filename}
+                                    </a>
+                                    <div class="btn-container">
+                                        <a href="#" class="btn btn-download">
+                                            <i class="far fa-arrow-alt-circle-down"></i>
+                                        </a>
+                                        <a href="#"  class="btn btn-delete">
+                                            <i class="far fa-times-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        `);
                         elem.append(newFileDOM);
                     });
-                })(userdata, folders);
+                })(userdata, folders, "");
+
+                $(".btn-download").on("click", function dlHandler(e) {
+                    e.preventDefault();
+                    fPath = $(this).closest("li").attr("path");
+                    optionsPython.args = [username, fPath];
+                    new PythonShell("client/download.py", optionsPython)
+                        .on('message', function (out) {
+                            if (out == "finished") {
+                                console.log("Correctly downloaded path");
+                            }
+                        });
+                });
+
+                $(".btn-delete").on("click", function dlHandler(e) {
+                    e.preventDefault();
+                    fPath = $(this).closest("li").attr("path");
+                    optionsPython.args = [username, fPath];
+                    new PythonShell("client/delete.py", optionsPython)
+                        .on('message', function (out) {
+                            if (out == "finished") {
+                                console.log("Correctly deleted path");
+                                location.reload();
+                            }
+                        });
+                });
+
+                $(".folder-element").on("click", "> .title-container", function hideChildren(e) {
+                    e.preventDefault();
+
+                    $(this).next().toggle();
+                    $(this).find(".arrow-icon").toggleClass("rotated");
+                });
             }
         });
-
-    // Contenedor de botones para subir cosas
-    var uploadContainer = $(".main-content #container-upload");
 
     // Evento para subir carpetas
     uploadContainer.on("click", "#input-folder", async function pickSendDirs(e) {

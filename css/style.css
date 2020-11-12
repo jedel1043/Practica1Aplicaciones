@@ -195,9 +195,15 @@ main.login{
 #content-files .btn-container{
     box-sizing: border-box;
     flex: 4;
-    display: flex;
+    display: none;
     flex-direction: row;
     font-size: 1.3em;
+}
+#content-files .title-container:hover > a.main-title {
+    font-weight: 900;
+}
+#content-files .title-container:hover .btn-container{
+    display: flex;
 }
 #content-files .btn-container a.btn.btn-download i{
     color: #29aaf5!important;
@@ -222,4 +228,8 @@ main.login{
 }
 #content-files ul li a i.arrow-icon{
     margin-right: 12px;
+}
+
+.rotated {
+    transform: rotate(-90deg);
 }
